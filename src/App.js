@@ -12,12 +12,13 @@ class App extends Component {
     subbreeds: [],
   };
 
-  change = (data, breed) => {
+  change = (data, breed, subbreed) => {
 
     if (data && typeof data === "string" && !breed) {
       this.setState({
         breed: data,
         subbreeds: this.state.breeds[data],
+        subbread: subbreed
       });
 
     } else if (breed) {
@@ -34,11 +35,7 @@ class App extends Component {
   }
 
   empty()  {
-
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // console.log('update',this.state.breeds, this.state.breed);
+    console.log('empty');
   }
 
   render() {
@@ -52,7 +49,7 @@ class App extends Component {
       children.push(<Select key="breeds" breeds={breeds} callbackFromParent={this.change}/>);
 
       if (subbreeds.length > 0) {
-        children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} callbackFromParent={this.empty}/>);
+        children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} callbackFromParent={this.change}/>);
       }
 
       if (image) {

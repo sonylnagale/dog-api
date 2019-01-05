@@ -6,6 +6,7 @@ class Select extends Component {
     breeds: null,
     breed: this.props.breed,
     image: null,
+    subbreed: null
   };
 
   componentDidMount() {
@@ -79,13 +80,25 @@ class Select extends Component {
     this.props.callbackFromParent(event.target.value);
   }
 
+  changeSubbreed = (event) => {
+    const { breed } = this.state;
+
+    this.setState({
+      subbreed: event.target.value
+    });
+
+    this.fetchImage(`${breed}/${event.target.value}`);
+    this.props.callbackFromParent(this.state.image, breed, event.target.value);
+
+  }
+
   render() {
     const { breeds, breed } = this.state;
 
     if (breed && this.props.breeds.length) {
       return (
-        <select onChange={this.change}>
-          <option>Select breed</option>
+        <select onChange={this.changeSubbreed}>
+          <option>Select subbreed</option>
           {this.props.breeds.map(breed =>
             <option key={breed} value={breed}>
               {breed}
