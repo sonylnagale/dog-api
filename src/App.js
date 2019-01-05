@@ -6,77 +6,74 @@ class App extends Component {
   state = {
     error: null,
     isLoaded: false,
-    breeds: [],
-    breed: null,
     image: null,
+    breeds: null,
+    breed: null,
+    subbreeds: [],
   };
 
-  componentDidMount() {
-    fetch("https://dog.ceo/api/breeds/list/all")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            breeds: result.message
-          });
-        },
+  change = (data, breed) => {
 
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    if (data && typeof data === "string" && !breed) {
+      this.setState({
+        breed: data,
+        subbreeds: this.state.breeds[data],
+      });
+
+    } else if (breed) {
+      this.setState({
+        image: data
+      });
+    } else {
+      this.setState({
+        breeds: data,
+        isLoaded: true,
+      });
+    }
+
   }
 
-  fetchDog(breed) {
-    fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            image: result.message
-          });
-        },
+  empty()  {
 
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
   }
 
-  change = (data) => {
-    this.setState({
-      breed: data
-    });
-
-    this.fetchDog(data);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // console.log('update',this.state.breeds, this.state.breed);
   }
 
   render() {
-    const { error, isLoaded, breeds, breed } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
+    const { breeds, breed, isLoaded, subbreeds, image } = this.state;
+
+    const children = [];
+
+    if (!isLoaded) {
+      children.push(<Select key="empty" callbackFromParent={this.change}/>);
     } else {
-      return (
-        <React.Fragment>
-          <Select breeds={breeds} callbackFromParent={this.change}/>
+      children.push(<Select key="breeds" breeds={breeds} callbackFromParent={this.change}/>);
 
-          <br />
+      if (subbreeds.length > 0) {
+        children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} callbackFromParent={this.empty}/>);
+      }
 
-          <img src={this.state.image} />
-        </React.Fragment>
-      );
+      if (image) {
+        children.push(<img key="image" src={image} alt="dog" />);
+      }
     }
+
+
+
+
+    return (
+        <DogComponent>
+          {children}
+        </DogComponent>
+    );
   }
+
 }
+
+const DogComponent = props => (
+  <div>{props.children}</div>
+);
 
 export default App;
