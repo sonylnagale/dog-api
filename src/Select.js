@@ -75,33 +75,41 @@ class Select extends Component {
       breed: event.target.value,
       image: null,
       breeds: this.props.breeds,
+      subbreeds: null
     });
 
     this.props.callbackFromParent(event.target.value);
+    this.updateBreed(event.target.value);
   }
 
   changeSubbreed = (event) => {
-    const { breed } = this.state;
-
     this.setState({
-      subbreed: event.target.value
+      subbreed: event.target.value,
+      breed: this.props.breed
     });
 
-    this.fetchImage(`${breed}/${event.target.value}`);
-    this.props.callbackFromParent(this.state.image, breed, event.target.value);
-
+    this.fetchImage(`${this.props.breed}/${event.target.value}`);
+    this.props.callbackFromParent(this.state.image, this.state.breed, event.target.value);
+    this.updateBreed(this.props.breed);
   }
+
+  updateBreed = (data) => {
+    this.setState({
+      breed: data
+    })
+    this.props.updateBreed(data);
+  }
+
 
   render() {
     const { breeds, breed } = this.state;
-
     if (breed && this.props.breeds.length) {
       return (
         <select onChange={this.changeSubbreed}>
           <option>Select subbreed</option>
-          {this.props.breeds.map(breed =>
-            <option key={breed} value={breed}>
-              {breed}
+          {this.props.breeds.map(subbreed =>
+            <option key={subbreed} value={subbreed}>
+              {subbreed}
             </option>
           )}
         </select>
