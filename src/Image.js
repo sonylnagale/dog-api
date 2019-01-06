@@ -17,7 +17,13 @@ class Image extends Component {
   }
 
   randomize() {
-    console.log('randomize');
+    const { breed, subbreed } = this.state;
+
+    if (subbreed) {
+      this.fetchImage(`${breed}/${subbreed}`);
+    } else if (breed) {
+      this.fetchImage(breed);
+    }
   }
 
   fetchImage(newBreed) {
@@ -29,7 +35,7 @@ class Image extends Component {
       .then(
         (result) => {
           image =  result.message;
-          
+
           this.setState({
             image: result.message,
           });
@@ -66,7 +72,7 @@ class Image extends Component {
       return (
         <>
           <img key="image" src={image} alt="dog"/>
-          <i className="fas fa-sync" onClick={this.randomize}></i>
+          <i className="fas fa-sync" onClick={this.randomize.bind(this)}></i>
         </>
       );
     } else {

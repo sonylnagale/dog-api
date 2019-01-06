@@ -35,3 +35,12 @@
 .fas {
   cursor: pointer;
 }
+
+select {
+  display:block;
+  min-width: 145px;
+}
+
+img {
+  margin: 10px;
+}

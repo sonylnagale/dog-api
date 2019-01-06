@@ -41,6 +41,7 @@ class App extends Component {
   render() {
     const { breeds, breed, isLoaded, subbreeds, subbreed } = this.state;
     const children = [];
+    let image;
 
     if (!isLoaded) {
       children.push(<Select key="empty" change={this.change}/>);
@@ -51,19 +52,22 @@ class App extends Component {
         children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} change={this.change} />);
       }
 
-      children.push(<Image key="image" breed={breed} subbreed={subbreed} src='' />);
+      image = <Image key="image" breed={breed} subbreed={subbreed} src='' />;
     }
 
     return (
+      <>
         <DogComponent>
           {children}
         </DogComponent>
+          {image}
+      </>
     );
   }
 }
 
 const DogComponent = props => (
-  <div>{props.children}</div>
+  <div className="col-md-4">{props.children}</div>
 );
 
 export default App;
