@@ -16,36 +16,6 @@ class Select extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const { breed, image } = this.state;
-
-    if (breed && !image) {
-      this.fetchImage(breed);
-    }
-  }
-
-  fetchImage(breed) {
-    const url = `https://dog.ceo/api/breed/${breed}/images/random`
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            image: result.message
-          });
-          this.props.callbackFromParent(result.message, breed);
-        },
-
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
-  }
-
   fetchDogs() {
     const url = "https://dog.ceo/api/breeds/list/all";
 
@@ -58,7 +28,7 @@ class Select extends Component {
             breeds: result.message
           });
 
-          this.props.callbackFromParent(result.message);
+          this.props.change(result.message);
         },
 
         (error) => {
@@ -78,27 +48,28 @@ class Select extends Component {
       subbreeds: null
     });
 
-    this.props.callbackFromParent(event.target.value);
-    this.updateBreed(event.target.value);
+    this.props.change(event.target.value);
+    // this.updateBreed(event.target.value);
   }
 
   changeSubbreed = (event) => {
+    console.log('change',event.target.value)
     this.setState({
       subbreed: event.target.value,
       breed: this.props.breed
     });
 
-    this.fetchImage(`${this.props.breed}/${event.target.value}`);
-    this.props.callbackFromParent(this.state.image, this.state.breed, event.target.value);
-    this.updateBreed(this.props.breed);
+    this.props.change(this.props.breed, event.target.value);
+    // this.updateBreed(this.props.breed, event.target.value);
   }
-
-  updateBreed = (data) => {
-    this.setState({
-      breed: data
-    })
-    this.props.updateBreed(data);
-  }
+  //
+  // updateBreed = (breed, subbreed) => {
+  //   this.setState({
+  //     breed: breed,
+  //     subbreed: subbreed
+  //   })
+  //   this.props.updateBreed(breed, subbreed);
+  // }
 
 
   render() {

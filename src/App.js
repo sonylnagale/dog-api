@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from './Select';
+import Image from './Image';
 import './App.css';
 
 class App extends Component {
@@ -10,20 +11,24 @@ class App extends Component {
     breeds: null,
     breed: null,
     subbreeds: [],
+    subbreed: null
   };
 
   change = (data, breed, subbreed) => {
+    console.log(data);
     // We've selected a single breed and now getting subbreeds if they exist
     // or we have a subbreed
-    if (data && typeof data === "string" && !breed) {
+    if (data && typeof data === "string") {
       this.setState({
         breed: data,
         subbreeds: this.state.breeds[data],
-        subbread: subbreed
+        subbreed: breed
       });
 
     } else if (breed) {
+
       this.setState({
+        subbreed: breed,
         image: data,
       });
     } else {
@@ -34,30 +39,35 @@ class App extends Component {
     }
 
   }
+  //
+  // updateBreed = (breed, subbreed) => {
+  //   this.setState({
+  //     breed: breed,
+  //     subbreed: subbreed,
+  //     image: false
+  //   });
+  // }
 
-  updateBreed = (data) => {
+  updateImage = (data) => {
     this.setState({
-      breed: data
-    })
+      image: data
+    });
   }
 
   render() {
-    const { breeds, breed, isLoaded, subbreeds, image } = this.state;
-
+    const { breeds, breed, isLoaded, subbreeds, subbreed, image } = this.state;
     const children = [];
 
     if (!isLoaded) {
-      children.push(<Select key="empty" callbackFromParent={this.change}/>);
+      children.push(<Select key="empty" change={this.change}/>);
     } else {
-      children.push(<Select key="breeds" breed={breed} breeds={breeds} callbackFromParent={this.change} updateBreed={this.updateBreed}/>);
+      children.push(<Select key="breeds" breed={breed} breeds={breeds} change={this.change}/>);
 
       if (subbreeds.length > 0) {
-        children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} callbackFromParent={this.change} updateBreed={this.updateBreed}/>);
+        children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} change={this.change} />);
       }
 
-      if (image) {
-        children.push(<img key="image" src={image} alt="dog" />);
-      }
+      children.push(<Image key="image" breed={breed} subbreed={subbreed} src={image} />);
     }
 
     return (
