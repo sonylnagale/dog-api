@@ -64,7 +64,7 @@ class Select extends Component {
     const { breeds, breed } = this.state;
     if (breed && this.props.breeds.length) {
       return (
-        <select onChange={this.changeSubbreed}>
+        <select onChange={this.changeSubbreed} data-test="subbreeds">
           <option>Select subbreed</option>
           {this.props.breeds.map(subbreed =>
             <option key={subbreed} value={subbreed}>
