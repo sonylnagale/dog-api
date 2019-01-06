@@ -27,8 +27,17 @@ The application is simple, but not naïve: all calls to the Dog API are handled 
 
 The stood-up version is here: https://dog-api-sonyl.herokuapp.com/
 
+Locally, please `git checkout dev` and run `yarn start`.
 
+### Testing
 
+I created very basic test suites for this application. They can be run via `yarn test`.
+
+### Notes
+
+I spent more time than 4 hours on this project, as it was one of my first forays into React development. Since I used a new technology to me, I spent much more time, but I feel this construction of using React versus a Node.js application or flat HTML is a better approach to this problem.
+
+Secondly, I haven't spent time on the UI apart from basics.
 
 
 
