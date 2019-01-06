@@ -75,7 +75,7 @@ class Select extends Component {
       )
     } else if (breeds) {
       return (
-        <select onChange={this.change}>
+        <select onChange={this.change} id="breeds">
           <option>Select breed</option>
           {Object.keys(breeds).map(breed => (
             <option key={breed} value={breed}>
