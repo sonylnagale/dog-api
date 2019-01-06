@@ -49,28 +49,16 @@ class Select extends Component {
     });
 
     this.props.change(event.target.value);
-    // this.updateBreed(event.target.value);
   }
 
   changeSubbreed = (event) => {
-    console.log('change',event.target.value)
     this.setState({
       subbreed: event.target.value,
       breed: this.props.breed
     });
 
     this.props.change(this.props.breed, event.target.value);
-    // this.updateBreed(this.props.breed, event.target.value);
   }
-  //
-  // updateBreed = (breed, subbreed) => {
-  //   this.setState({
-  //     breed: breed,
-  //     subbreed: subbreed
-  //   })
-  //   this.props.updateBreed(breed, subbreed);
-  // }
-
 
   render() {
     const { breeds, breed } = this.state;

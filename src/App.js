@@ -7,55 +7,39 @@ class App extends Component {
   state = {
     error: null,
     isLoaded: false,
-    image: null,
     breeds: null,
     breed: null,
     subbreeds: [],
     subbreed: null
   };
 
-  change = (data, breed, subbreed) => {
-    console.log(data);
+  change = (data, breed) => {
+    const { breeds } = this.state;
+
     // We've selected a single breed and now getting subbreeds if they exist
     // or we have a subbreed
     if (data && typeof data === "string") {
       this.setState({
         breed: data,
-        subbreeds: this.state.breeds[data],
+        subbreeds: breeds[data],
         subbreed: breed
       });
 
     } else if (breed) {
-
       this.setState({
         subbreed: breed,
-        image: data,
+        image: data
       });
     } else {
       this.setState({
         breeds: data,
-        isLoaded: true,
+        isLoaded: true
       });
     }
-
-  }
-  //
-  // updateBreed = (breed, subbreed) => {
-  //   this.setState({
-  //     breed: breed,
-  //     subbreed: subbreed,
-  //     image: false
-  //   });
-  // }
-
-  updateImage = (data) => {
-    this.setState({
-      image: data
-    });
   }
 
   render() {
-    const { breeds, breed, isLoaded, subbreeds, subbreed, image } = this.state;
+    const { breeds, breed, isLoaded, subbreeds, subbreed } = this.state;
     const children = [];
 
     if (!isLoaded) {
@@ -67,7 +51,7 @@ class App extends Component {
         children.push(<Select key="subbreeds" breed={breed} breeds={subbreeds} change={this.change} />);
       }
 
-      children.push(<Image key="image" breed={breed} subbreed={subbreed} src={image} />);
+      children.push(<Image key="image" breed={breed} subbreed={subbreed} src='' />);
     }
 
     return (
@@ -76,7 +60,6 @@ class App extends Component {
         </DogComponent>
     );
   }
-
 }
 
 const DogComponent = props => (
