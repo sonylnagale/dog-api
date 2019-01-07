@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Select from './Select';
-import Image from './Image';
+import Dog from './components/Dog';
+import Select from './components/Select';
+import Image from './components/Image';
 import './App.css';
 
 class App extends Component {
@@ -57,17 +58,13 @@ class App extends Component {
 
     return (
       <>
-        <DogComponent>
+        <Dog>
           {children}
-        </DogComponent>
+        </Dog>
           {image}
       </>
     );
   }
 }
-
-const DogComponent = props => (
-  <div className="col-md-4">{props.children}</div>
-);
 
 export default App;

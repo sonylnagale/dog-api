@@ -71,7 +71,7 @@ class Image extends Component {
     if (this.props.breed !== null) {
       return (
         <>
-          <img key="image" src={image} alt="dog"/>
+          <img key="image" class="dog" src={image} alt="dog"/>
           <i className="fas fa-sync" onClick={this.randomize.bind(this)}></i>
         </>
       );
