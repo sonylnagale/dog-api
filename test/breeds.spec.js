@@ -35,15 +35,15 @@ describe("Breed Select", () => {
   }, 16000);
 
   test("the correct breed shows", async () => {
-    await page.waitForSelector("img");
-    const image = await page.$eval("img", el => el.src);
+    await page.waitForSelector("[data-test=dog]");
+    const image = await page.$eval("[data-test=dog]", el => el.src);
     expect(image).toMatch(/terrier/);
   }, 16000);
 
   test("the refresh button shows the same breed", async () => {
     await page.waitForSelector("i");
     await page.click("i");
-    const breedImage = await page.$eval("img", el => el.src);
+    const breedImage = await page.$eval("[data-test=dog]", el => el.src);
     expect(breedImage).toMatch(/terrier/);
   }, 16000);
 
@@ -55,15 +55,15 @@ describe("Breed Select", () => {
   }, 16000);
 
   test("the correct subbreed shows", async () => {
-    await page.waitForSelector("img");
-    const image = await page.$eval("img", el => el.src);
+    await page.waitForSelector("[data-test=dog]");
+    const image = await page.$eval("[data-test=dog]", el => el.src);
     expect(image).toMatch(/terrier\-scottish/);
   }, 16000);
 
   test("the refresh button shows the same subbreed", async () => {
     await page.waitForSelector("i");
     await page.click("i");
-    const breedImage = await page.$eval("img", el => el.src);
+    const breedImage = await page.$eval("[data-test=dog]", el => el.src);
     expect(breedImage).toMatch(/terrier\-scottish/);
   }, 16000);
 
@@ -74,8 +74,8 @@ describe("Breed Select", () => {
   }, 16000);
 
   test("the correct breed shows with a different selected breed", async () => {
-    await page.waitForSelector("img");
-    const image = await page.$eval("img", el => el.src);
+    await page.waitForSelector("[data-test=dog]");
+    const image = await page.$eval("[data-test=dog]", el => el.src);
     expect(image).toMatch(/collie/);
   }, 16000);
 
@@ -87,15 +87,15 @@ describe("Breed Select", () => {
   }, 16000);
 
   test("the correct subbreed shows", async () => {
-    await page.waitForSelector("img");
-    const image = await page.$eval("img", el => el.src);
+    await page.waitForSelector("[data-test=dog]");
+    const image = await page.$eval("[data-test=dog]", el => el.src);
     expect(image).toMatch(/collie\-border/);
   }, 16000);
 
   test("the refresh button shows the same subbreed", async () => {
     await page.waitForSelector("i");
     await page.click("i");
-    const breedImage = await page.$eval("img", el => el.src);
+    const breedImage = await page.$eval("[data-test=dog]", el => el.src);
     expect(breedImage).toMatch(/collie\-border/);
   }, 16000);
 });

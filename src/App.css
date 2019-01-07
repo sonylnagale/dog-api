@@ -11,8 +11,9 @@ select {
   min-width: 145px;
 }
 
-img {
+img.dog {
   margin: 10px;
+  max-width: 50%;
 }
 
 #breeds  {
