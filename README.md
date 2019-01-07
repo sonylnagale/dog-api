@@ -16,13 +16,12 @@ Estimated time to spend: 4 hours.
 
 Using `create-react-app`, I scaffolded a React project for the challenge.
 
-There are three components:
+There are four components:
   1. `App.js`, the base component, which handles rendering and communication with its children.
   1. `Select.js` which renders the `<select>` menus according to the proper data.
   1. `Image.js` to render the appropriate dog image.
-
-The application is simple, but not naïve: all calls to the Dog API are handled in an asynchronous fashion to allow the Dog API time to respond appropriately.
-
+  1. `Dog.js`, a simple JSX container.
+  
 ### Running
 
 The stood-up version is here: https://dog-api-sonyl.herokuapp.com/
